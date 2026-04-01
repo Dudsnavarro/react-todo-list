@@ -83,7 +83,9 @@ function App() {
             })}
           </ToDoList>
           <Footer>
-            <Dialog isOpen={showDialog} onClose={toggleDialog}/>
+            <Dialog isOpen={showDialog} onClose={toggleDialog}>
+              <p>aaaaaa</p>
+            </Dialog>
             <FabButton onClick={toggleDialog}>
               <IconPlus />
             </FabButton>

@@ -1,17 +1,18 @@
-import { useEffect, useRef } from "react";
+import { Children, useEffect, useRef } from "react";
+import "./dialog.style.css";
+import { IconTrash } from "../icons";
 
-export function Dialog({ isOpen, onClose }) {
-
-  const dialogRef = useRef (null)
+export function Dialog({ isOpen, onClose, children }) {
+  const dialogRef = useRef(null);
 
   useEffect(() => {
-    console.log('deveriamos mostrar', isOpen)
+    console.log("deveriamos mostrar", isOpen);
     if (isOpen) {
-      openDialog()
+      openDialog();
     } else {
-      closeDialog()
+      closeDialog();
     }
-  }, [isOpen])
+  }, [isOpen]);
 
   const openDialog = () => {
     dialogRef.current.showModal();
@@ -22,9 +23,13 @@ export function Dialog({ isOpen, onClose }) {
   };
 
   return (
-      <dialog ref={dialogRef}>
-        <button autoFocus onClick={onClose}>Close</button>
-        <p>This modal dialog has a groovy backdrop!</p>
-      </dialog>
+    <dialog ref={dialogRef} className="dialog">
+      <div className="btn-close-wrapper">
+        <button autoFocus onClick={onClose} className="btn-close">
+          <IconTrash />
+        </button>
+      </div>
+      {children}
+    </dialog>
   );
 }
