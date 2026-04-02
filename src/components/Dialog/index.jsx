@@ -29,7 +29,7 @@ export function Dialog({ isOpen, onClose, children }) {
           <IconTrash />
         </button>
       </div>
-      {children}
+      <div className="body">{children}</div>
     </dialog>
   );
 }
