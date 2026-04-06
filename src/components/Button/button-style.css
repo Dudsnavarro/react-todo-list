@@ -9,7 +9,7 @@
     gap: 10px;
     border-radius: 24px;
     text-align: center;
-    margin-top: 10px;
+    cursor: pointer;
 }
 
 .button-body {
@@ -19,5 +19,4 @@
 
 .button-submit:hover {
     background-color: #544ACB;
-    cursor: pointer;
 }

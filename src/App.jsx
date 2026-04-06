@@ -10,8 +10,7 @@ import { SubHeading } from "./components/SubHeading"
 import { ToDoItem } from "./components/ToDoItem"
 import { ToDoList } from "./components/ToDoList"
 import { Dialog } from "./components/Dialog"
-import { TextInput } from "./components/TextInput"
-import { Button } from "./components/Button"
+import { ToDoForm } from "./components/ToDoForm"
 
 const todos = [
   {
@@ -60,7 +59,12 @@ function App() {
 
   const toggleDialog = () => {
     setShowDialog(!showDialog)
-    console.log('alterna modal')
+
+  }
+
+  const addTodo = () => {
+    console.log("Adicionar todo")
+    toggleDialog()
   }
 
   return (
@@ -86,10 +90,7 @@ function App() {
           </ToDoList>
           <Footer>
             <Dialog isOpen={showDialog} onClose={toggleDialog}>
-              <form>
-                <TextInput placeholder="Digite o item que deseja adicionar"/>
-              </form>
-              <Button>Salvar item</Button>
+              <ToDoForm onSubmit={addTodo} />
             </Dialog>
             <FabButton onClick={toggleDialog}>
               <IconPlus />
