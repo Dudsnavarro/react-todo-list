@@ -1,21 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ToDoContext from "./ToDoContext";
 
+const TODOS = 'todos';
+
 export function ToDoProvider({ children }) {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      description: "as e componentesa",
-      completed: false,
-      createdAt: "2022-10-31",
-    },
-    {
-      id: 2,
-      description: "Controle de inputs e formulários controlados",
-      completed: true,
-      createdAt: "2022-10-31",
-    },
-  ]);
+
+  const savedTodos = localStorage.getItem(TODOS)
+
+  const [todos, setTodos] = useState(savedTodos ? JSON.parse(savedTodos) : []);
 
   const addTodo = (formaData) => {
     const description = formaData.get("description");
@@ -29,6 +21,10 @@ export function ToDoProvider({ children }) {
       return [...prevState, todo];
     });
   };
+
+  useEffect(() => {
+    localStorage.setItem(TODOS, JSON.stringify.todos)
+  }, [todos])
 
   const toggleTodoCompleted = (todo) => {
     setTodos((prevState) => {
