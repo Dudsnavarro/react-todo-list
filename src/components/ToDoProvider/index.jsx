@@ -6,12 +6,19 @@ const TODOS = 'todos';
 export function ToDoProvider({ children }) {
 
   const savedTodos = localStorage.getItem(TODOS)
-
-
   const [showDialog, setShowDialog] = useState(false)
+  const [selectedTodo, setSelectedTodo] = useState()
 
-  const toggleDialog = () => {
-    setShowDialog(!showDialog)
+  const openFormTodoDialog = (todo) => {
+    if ( todo ) {
+      setSelectedTodo(todo)
+    }
+    setShowDialog(true)
+  }
+
+  const closeFormTodoDialog = () => {
+    setShowDialog(false)
+    setSelectedTodo(null)
 
   }
 
@@ -60,8 +67,22 @@ export function ToDoProvider({ children }) {
     });
   };
 
+  const editTodo = (formaData) => {
+    setTodos((prevState) => {
+      return prevState.map((t) => {
+        if (t.id == selectedTodo.id) {
+          return {
+            ...t,
+            description: formaData.get('description')
+          };
+        }
+        return t;
+      });
+    });
+  };
+
   return (
-    <ToDoContext value={{ todos, addTodo, toggleTodoCompleted, deleteTodo, showDialog, toggleDialog }}>
+    <ToDoContext value={{ todos, addTodo, toggleTodoCompleted, deleteTodo, showDialog, openFormTodoDialog, closeFormTodoDialog, selectedTodo, editTodo }}>
       {children}
     </ToDoContext>
   );

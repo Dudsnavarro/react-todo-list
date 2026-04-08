@@ -14,6 +14,16 @@ export function Dialog({ isOpen, onClose, children }) {
     }
   }, [isOpen]);
 
+
+  //Valida fechamento da dialog pelo Esc
+  useEffect(() => {
+    const dialog = dialogRef.current
+    dialog?.addEventListener('close', onClose)
+    return () => {
+      dialog?.removeEventListener('close', onClose)
+    }
+  }, [onClose])
+
   const openDialog = () => {
     dialogRef.current.showModal();
   };
