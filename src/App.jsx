@@ -1,4 +1,4 @@
-import { use, useState } from "react"
+import { use } from "react"
 import { ChecklistsWrapper } from "./components/ChecklistsWrapper"
 import { Container } from "./components/Container"
 import { FabButton } from "./components/FabButton"
@@ -13,20 +13,12 @@ import { ToDoGroup } from "./components/ToDoGroup"
 
 function App() {
 
-  const [showDialog, setShowDialog] = useState(false)
-  const { todos, addTodo } = use(ToDoContext)
-
-  const toggleDialog = () => {
-    setShowDialog(!showDialog)
-
-  }
+  const { todos, addTodo, showDialog, toggleDialog } = use(ToDoContext)
 
   const handleFormSubmit = (formData) => {
     addTodo(formData);
     toggleDialog ();
   }
-
-
 
   return (
     <main>

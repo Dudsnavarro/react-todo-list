@@ -7,11 +7,25 @@ export function ToDoProvider({ children }) {
 
   const savedTodos = localStorage.getItem(TODOS)
 
-  const [todos, setTodos] = useState(savedTodos ? JSON.parse(savedTodos) : []);
+
+  const [showDialog, setShowDialog] = useState(false)
+
+  const toggleDialog = () => {
+    setShowDialog(!showDialog)
+
+  }
+
+    const [todos, setTodos] = useState(() => {
+    try {
+      return savedTodos ? JSON.parse(savedTodos) : [];
+    } catch {
+      return [];
+    }
+  });
 
   const addTodo = (formaData) => {
     const description = formaData.get("description");
-    setTodos((prevState) => {
+    setTodos((prevState) => { 
       const todo = {
         id: prevState.length + 1,
         description: description,
@@ -22,9 +36,9 @@ export function ToDoProvider({ children }) {
     });
   };
 
-  useEffect(() => {
-    localStorage.setItem(TODOS, JSON.stringify.todos)
-  }, [todos])
+    useEffect(() => {
+        localStorage.setItem(TODOS, JSON.stringify(todos))
+    }, [todos])
 
   const toggleTodoCompleted = (todo) => {
     setTodos((prevState) => {
@@ -47,7 +61,7 @@ export function ToDoProvider({ children }) {
   };
 
   return (
-    <ToDoContext value={{ todos, addTodo, toggleTodoCompleted, deleteTodo }}>
+    <ToDoContext value={{ todos, addTodo, toggleTodoCompleted, deleteTodo, showDialog, toggleDialog }}>
       {children}
     </ToDoContext>
   );
